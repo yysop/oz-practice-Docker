@@ -1,3 +1,5 @@
+# 0305
+
 FROM python:3.13-slim
 WORKDIR /app
 # 현재 경로에 있는 모든 파일을 Container 안으로 모두 복사
