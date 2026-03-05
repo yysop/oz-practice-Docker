@@ -1,0 +1,6 @@
+# 필요한 라이브러리 이름 적어줌
+
+fastapi[standard]
+sqlalchemy
+pymysql
+cryptograpy

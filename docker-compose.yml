@@ -1,0 +1,14 @@
+services:
+  api:
+    build: . # 이미지 생성
+    ports:
+      - "80:8000"
+    depends_on: # db가 정상 작동되어야 api 서비스가 실행됨 (api가 db에 의존)
+      - db
+  db: 
+    image: mysql:8.0 # 공식 이미지 다운로드 받아서 실행됨
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: oz
+    ports:
+      - "33061:3306"
