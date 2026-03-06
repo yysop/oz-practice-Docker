@@ -6,3 +6,4 @@ fastapi[standard]
 sqlalchemy
 pymysql
 cryptograpy
+redis

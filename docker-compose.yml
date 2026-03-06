@@ -2,11 +2,14 @@
 
 services:
   api:
-    build: . # 이미지 생성
+    build: ./api # 이미지 생성 # 현재 경로 기준 api 폴더에서 찾게 함
     ports:
       - "80:8000"
     depends_on: # db가 정상 작동되어야 api 서비스가 실행됨 (api가 db에 의존)
       - db
+      - redis
+    volumes:
+      - ./api:/app  # 현재 경로 연결 (실시간으로 app이랑 동기화됨) -> 경로에 api 추가
   db: 
     image: mysql:8.0 # 공식 이미지 다운로드 받아서 실행됨
     environment:
@@ -14,3 +17,18 @@ services:
       MYSQL_DATABASE: oz
     ports:
       - "33061:3306"
+    volumes: # Docker Volume
+      - db_data:/var/lib/mysql
+
+  # worker는 도커 내부에서만 사용되므로 ports 설정 필요 x
+  worker:
+    build: ./worker
+    # redis가 먼저 실행될 수 있게 함
+    depends_on:
+      - redis 
+
+  redis:
+    image: redis:8
+  
+volumes:
+  db_data:
